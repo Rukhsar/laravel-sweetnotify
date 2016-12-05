@@ -13,7 +13,8 @@ class SweetNotifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishFiles();
+        $this->LoadViewsFrom(__DIR__.'/views','SweetNotify');
     }
 
     /**
@@ -23,6 +24,15 @@ class SweetNotifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        include __DIR__.'/helper.php';
+    }
+
+    protected function publishFiles()
+    {
+        $this->publishes([
+                    __DIR__.'/sweetalert/sweetalert.css'        =>  public_path('css/sweetalert.css'),
+                    __DIR__.'/sweetalert/sweetalert.js'         =>  public_path('js/sweetalert.js'),
+                    __DIR__.'/views/sweetnotify.blade.php'      =>  base_path('resources/views/vendor/sweetnotify/sweetnotify.blade.php'),
+            ], 'alerts');
     }
 }
